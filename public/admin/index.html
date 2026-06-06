@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mangoeverse Admin</title>
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <div id="login-screen" class="login-screen">
+    <div class="login-card">
+      <h1>Mangoeverse Admin</h1>
+      <p>Enter your admin token to continue.</p>
+      <input type="password" id="token-input" placeholder="Admin token" autocomplete="off">
+      <button type="button" class="btn btn-primary" id="login-btn">Sign In</button>
+      <p id="login-error" class="alert alert-error hidden" style="margin-top:1rem;margin-bottom:0"></p>
+    </div>
+  </div>
+
+  <div id="admin-app" class="admin-layout hidden">
+    <aside class="sidebar">
+      <div class="sidebar-logo">🥭 Admin</div>
+      <button type="button" class="nav-item active" data-view="dashboard">Dashboard</button>
+      <button type="button" class="nav-item" data-view="orders">Orders</button>
+      <button type="button" class="nav-item" data-view="inventory">Inventory</button>
+      <button type="button" class="nav-item" data-view="referrals">Referrals</button>
+      <button type="button" class="nav-item" data-view="customers">Customers</button>
+      <button type="button" class="nav-item" id="logout-btn" style="margin-top:2rem;color:rgba(255,255,255,0.5)">Sign Out</button>
+    </aside>
+
+    <main class="main">
+      <div class="mobile-nav">
+        <button type="button" class="nav-item active" data-view="dashboard">Dashboard</button>
+        <button type="button" class="nav-item" data-view="orders">Orders</button>
+        <button type="button" class="nav-item" data-view="inventory">Inventory</button>
+        <button type="button" class="nav-item" data-view="referrals">Referrals</button>
+        <button type="button" class="nav-item" data-view="customers">Customers</button>
+      </div>
+
+      <section id="view-dashboard" class="view">
+        <div class="page-header">
+          <h1 class="page-title">Dashboard</h1>
+          <button type="button" class="btn btn-ghost btn-sm" id="refresh-dashboard">Refresh</button>
+        </div>
+        <div class="metrics-grid" id="metrics-grid"></div>
+        <div class="panel">
+          <div class="panel-title">Recent Orders</div>
+          <table class="data-table" id="recent-orders-table">
+            <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-orders" class="view hidden">
+        <div class="page-header">
+          <h1 class="page-title">Orders</h1>
+          <button type="button" class="btn btn-ghost btn-sm" id="refresh-orders">Refresh</button>
+        </div>
+        <div class="kanban" id="kanban"></div>
+      </section>
+
+      <section id="view-inventory" class="view hidden">
+        <div class="page-header">
+          <h1 class="page-title">Inventory</h1>
+          <button type="button" class="btn btn-ghost btn-sm" id="refresh-inventory">Refresh</button>
+        </div>
+        <div id="low-stock-alert"></div>
+        <table class="data-table" id="inventory-table">
+          <thead><tr><th>Product</th><th>Price</th><th>Stock</th><th>Featured</th><th>Actions</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <section id="view-referrals" class="view hidden">
+        <div class="page-header">
+          <h1 class="page-title">Referral Center</h1>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Top Ambassadors</div>
+          <div id="ambassadors-list"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Recent Referrals</div>
+          <table class="data-table" id="referrals-table">
+            <thead><tr><th>Referrer</th><th>Referred</th><th>Converted</th><th>Date</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="view-customers" class="view hidden">
+        <div class="page-header">
+          <h1 class="page-title">Customers</h1>
+        </div>
+        <table class="data-table" id="customers-table">
+          <thead><tr><th>Phone</th><th>Name</th><th>Points</th><th>Referrals</th><th>LTV</th><th></th></tr></thead>
+          <tbody></tbody>
+        </table>
+        <div id="customer-detail" class="panel hidden" style="margin-top:1rem"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="/admin/admin.js"></script>
+</body>
+</html>

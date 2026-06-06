@@ -1,0 +1,20 @@
+{
+  "name": "mangoeverse",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Premium Pakistani mango e-commerce — Mangoeverse",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "deploy:pages": "wrangler pages deploy public",
+    "types": "wrangler types",
+    "db:migrate:local": "wrangler d1 migrations apply mangoeverse --local",
+    "db:migrate": "wrangler d1 migrations apply mangoeverse --remote",
+    "db:create": "wrangler d1 create mangoeverse"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250204.0",
+    "wrangler": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "mangoeverse",
+  "main": "src/worker/index.ts",
+  "compatibility_date": "2026-03-01",
+  "account_id": "94c9d2b075c868634f716993dbb0970f",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "mangoeverse",
+      "database_id": "ffcba2bb-7c5b-4640-8316-58fb9f195d41",
+      "migrations_dir": "migrations"
+    }
+  ],
+  // R2: enable at https://dash.cloudflare.com → R2, then uncomment:
+  // "r2_buckets": [{ "binding": "IMAGES", "bucket_name": "mangoeverse-images" }],
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "5b5a84ff1ea34bbf86dbfbd6f6382e58"
+    }
+  ],
+  "queues": {
+    "producers": [
+      {
+        "binding": "NOTIFY",
+        "queue": "mango-notify"
+      }
+    ],
+    "consumers": [
+      {
+        "queue": "mango-notify",
+        "max_batch_size": 10,
+        "max_batch_timeout": 30
+      }
+    ]
+  }
+}

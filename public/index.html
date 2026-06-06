@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Mangoeverse — Premium Pakistani Mangoes Delivered Fresh</title>
+  <meta name="description" content="Shop premium 5kg boxes of Sindhri, Chaunsa, Anwar Ratol, Langra & Dussehri mangoes. Handpicked in Pakistan, delivered fresh to your door.">
+  <link rel="canonical" href="https://mangoeverse.pages.dev/">
+  <meta name="theme-color" content="#F5A623">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Mangoeverse">
+  <meta property="og:title" content="Mangoeverse — Premium Pakistani Mangoes">
+  <meta property="og:description" content="Premium 5kg mango boxes — Sindhri, Chaunsa, Anwar Ratol, Langra & Dussehri. Limited drops, delivered fresh.">
+  <meta property="og:url" content="https://mangoeverse.pages.dev/">
+  <meta property="og:image" content="https://mangoeverse.pages.dev/images/og-image.svg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Mangoeverse — Premium Pakistani Mangoes">
+  <meta name="twitter:description" content="Premium 5kg mango boxes — limited drops, delivered fresh.">
+  <meta name="twitter:image" content="https://mangoeverse.pages.dev/images/og-image.svg">
+
+  <!-- Meta Pixel: replace YOUR_PIXEL_ID in js/tracking.js -->
+  <!-- Conversions API: configured via Worker secret META_CAPI_ACCESS_TOKEN (Phase 2) -->
+
+  <link rel="stylesheet" href="/css/critical.css">
+  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://mangoeverse.pages.dev/#organization",
+        "name": "Mangoeverse",
+        "url": "https://mangoeverse.pages.dev/",
+        "logo": "https://mangoeverse.pages.dev/images/mango-icon.svg",
+        "description": "Premium Pakistani mango e-commerce — handpicked 5kg boxes delivered fresh."
+      },
+      {
+        "@type": "ItemList",
+        "name": "Mangoeverse Premium Mango Collection",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Sindhri 5kg Box", "sku": "sindhri", "offers": { "@type": "Offer", "price": "4500", "priceCurrency": "PKR", "availability": "https://schema.org/InStock" } } },
+          { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Chaunsa 5kg Box", "sku": "chaunsa", "offers": { "@type": "Offer", "price": "5200", "priceCurrency": "PKR", "availability": "https://schema.org/InStock" } } },
+          { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Anwar Ratol 5kg Box", "sku": "anwar-ratol", "offers": { "@type": "Offer", "price": "5800", "priceCurrency": "PKR", "availability": "https://schema.org/InStock" } } },
+          { "@type": "ListItem", "position": 4, "item": { "@type": "Product", "name": "Langra 5kg Box", "sku": "langra", "offers": { "@type": "Offer", "price": "4800", "priceCurrency": "PKR", "availability": "https://schema.org/InStock" } } },
+          { "@type": "ListItem", "position": 5, "item": { "@type": "Product", "name": "Dussehri 5kg Box", "sku": "dussehri", "offers": { "@type": "Offer", "price": "4200", "priceCurrency": "PKR", "availability": "https://schema.org/InStock" } } }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "How fresh are the mangoes?", "acceptedAnswer": { "@type": "Answer", "text": "Every box is handpicked at peak ripeness and dispatched within 24 hours of your order. Expect delivery in 2–4 days across major cities." } },
+          { "@type": "Question", "name": "What varieties do you offer?", "acceptedAnswer": { "@type": "Answer", "text": "We offer premium 5kg boxes of Sindhri, Chaunsa, Anwar Ratol, Langra, and Dussehri — all sourced from top orchards in Pakistan." } },
+          { "@type": "Question", "name": "Do you offer cash on delivery?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! All orders are Cash on Delivery (COD). Pay when your mangoes arrive." } },
+          { "@type": "Question", "name": "What is the Sweetness Club?", "acceptedAnswer": { "@type": "Answer", "text": "Sweetness Club is our loyalty program. Earn points on orders, referrals, and reviews to unlock free delivery, early access to drops, and exclusive rewards." } },
+          { "@type": "Question", "name": "How does Build Your Mango Squad work?", "acceptedAnswer": { "@type": "Answer", "text": "Share your referral link after checkout. When friends order, you level up and earn rewards — from bonus points to free delivery and mango boxes." } }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header" role="banner">
+    <a href="/" class="logo" aria-label="Mangoeverse home">
+      <img src="/images/mango-icon.svg" alt="" class="logo-icon" width="28" height="28">
+      Mangoeverse
+    </a>
+    <div class="header-actions">
+      <button type="button" class="icon-btn" id="profile-btn" aria-label="Profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </button>
+      <button type="button" class="icon-btn" id="cart-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><circle cx="9" cy="20" r="1"/><circle cx="18" cy="20" r="1"/><path d="M6 6L5 3H2"/></svg>
+        <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero variants: Premium Mangoes. Delivered Fresh. | The Internet's Favorite Mango Store | Welcome to Mangoeverse. -->
+    <section class="hero" id="hero" aria-labelledby="hero-title">
+      <div class="hero-bg" aria-hidden="true">
+        <svg class="floating-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#F5A623"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+        <svg class="floating-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#FFD93D"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#40916C"/></svg>
+        <svg class="floating-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#F5A623" opacity="0.8"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+        <svg class="floating-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#FFB347"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+        <svg class="floating-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#FFE066"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#40916C"/></svg>
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">Season '26 · Limited Drops</p>
+        <h1 class="hero-title" id="hero-title">Premium Mangoes.<br>Delivered Fresh.</h1>
+        <p class="hero-sub">5kg boxes of Pakistan's finest — Sindhri, Chaunsa, Anwar Ratol & more.</p>
+        <div class="hero-ctas">
+          <a href="#drop" class="btn btn-primary" id="hero-drop-cta">Get Today's Drop</a>
+          <a href="#club" class="btn btn-secondary" id="hero-club-cta">Join Sweetness Club</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section drop-section reveal" id="drop" aria-labelledby="drop-heading">
+      <header class="section-header">
+        <p class="section-label">Featured Drop</p>
+        <h2 class="section-title" id="drop-heading">Today's Pick</h2>
+      </header>
+      <article class="drop-card">
+        <span class="drop-badge">Limited Batch</span>
+        <h3 class="drop-name" id="drop-name">CHAUNSA DROP #07</h3>
+        <p style="color:var(--color-muted);font-size:0.9375rem">Peak-season Chaunsa from Multan orchards. Intensely aromatic, saffron-hued flesh.</p>
+        <div class="drop-meta">
+          <div class="drop-meta-item">
+            <span class="drop-meta-label">Price</span>
+            <span class="drop-meta-value drop-price" id="drop-price">Rs. 5,200</span>
+          </div>
+          <div class="drop-meta-item">
+            <span class="drop-meta-label">In Stock</span>
+            <span class="drop-meta-value" id="drop-stock">18 boxes left</span>
+          </div>
+          <div class="drop-meta-item">
+            <span class="drop-meta-label">Delivery</span>
+            <span class="drop-meta-value">2–4 days</span>
+          </div>
+        </div>
+        <p class="drop-countdown" id="drop-countdown" aria-live="polite"></p>
+        <button type="button" class="btn btn-primary" id="drop-add-btn">Add To Basket</button>
+      </article>
+    </section>
+
+    <section class="section reveal" id="shop" aria-labelledby="shop-heading">
+      <header class="section-header">
+        <p class="section-label">Shop</p>
+        <h2 class="section-title" id="shop-heading">Pick Your Variety</h2>
+      </header>
+      <div class="shop-scroll" id="shop-scroll" role="list"></div>
+    </section>
+
+    <section class="section club-section reveal" id="club" aria-labelledby="club-heading">
+      <header class="section-header">
+        <p class="section-label">Sweetness Club</p>
+        <h2 class="section-title" id="club-heading">Earn While You Indulge</h2>
+      </header>
+      <div class="club-card">
+        <div class="club-level">
+          <span class="club-level-name" id="club-level-name">Sweetness Level 3</span>
+          <span class="club-level-num" id="club-level-label">Golden</span>
+        </div>
+        <div class="progress-bar" role="progressbar" aria-valuenow="740" aria-valuemin="0" aria-valuemax="1000">
+          <div class="progress-fill" id="club-progress-fill" style="width:74%"></div>
+        </div>
+        <p class="progress-text" id="club-progress-text">740 / 1000 points</p>
+        <div class="rewards-grid">
+          <div class="reward-item"><span>🚚</span>Free Delivery</div>
+          <div class="reward-item"><span>⚡</span>Early Access</div>
+          <div class="reward-item"><span>💛</span>Member Pricing</div>
+          <div class="reward-item"><span>🥭</span>Exclusive Drops</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section referral-section reveal" id="referral" aria-labelledby="referral-heading">
+      <header class="section-header">
+        <p class="section-label">Referral Quest</p>
+        <h2 class="section-title" id="referral-heading">Build Your Mango Squad</h2>
+      </header>
+      <div class="quest-levels" id="quest-levels"></div>
+      <div class="quest-progress-wrap">
+        <div class="quest-progress-label">
+          <span>Squad Progress</span>
+          <span id="quest-progress-label">0/1</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="quest-progress-fill" style="width:0%"></div>
+        </div>
+      </div>
+      <div class="referral-link-box" id="referral-link-box" style="display:none">
+        <p>Your squad link — share it everywhere</p>
+        <span class="referral-link" id="referral-link-text"></span>
+        <button type="button" class="btn-copy" id="copy-referral">Copy Referral Link</button>
+      </div>
+    </section>
+
+    <section class="section reveal" id="reviews" aria-labelledby="reviews-heading">
+      <header class="section-header">
+        <p class="section-label">Mango Moments</p>
+        <h2 class="section-title" id="reviews-heading">Real Love, Real Mangoes</h2>
+      </header>
+      <div class="moments-scroll" role="list">
+        <article class="moment-card" role="listitem">
+          <div class="moment-photo" aria-hidden="true">🥭</div>
+          <div class="moment-body">
+            <blockquote class="moment-quote">"Finished a 5kg box in 2 days."</blockquote>
+            <cite class="moment-author">— Ayesha, Lahore</cite>
+          </div>
+        </article>
+        <article class="moment-card" role="listitem">
+          <div class="moment-photo" aria-hidden="true">✨</div>
+          <div class="moment-body">
+            <blockquote class="moment-quote">"Best Chaunsa I've had. Period."</blockquote>
+            <cite class="moment-author">— Omar, Karachi</cite>
+          </div>
+        </article>
+        <article class="moment-card" role="listitem">
+          <div class="moment-photo" aria-hidden="true">👨‍👩‍👧</div>
+          <div class="moment-body">
+            <blockquote class="moment-quote">"Ordered for Eid — entire family obsessed."</blockquote>
+            <cite class="moment-author">— Fatima, Islamabad</cite>
+          </div>
+        </article>
+        <article class="moment-card" role="listitem">
+          <div class="moment-photo" aria-hidden="true">📦</div>
+          <div class="moment-body">
+            <blockquote class="moment-quote">"Anwar Ratol so sweet it doesn't need chaat masala."</blockquote>
+            <cite class="moment-author">— Hassan, Rawalpindi</cite>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section faq-section reveal" id="faq" aria-labelledby="faq-heading">
+      <header class="section-header">
+        <p class="section-label">FAQ</p>
+        <h2 class="section-title" id="faq-heading">Got Questions?</h2>
+      </header>
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>How fresh are the mangoes?</summary>
+          <p class="faq-answer">Every box is handpicked at peak ripeness and dispatched within 24 hours of your order. Expect delivery in 2–4 days across major cities.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What varieties do you offer?</summary>
+          <p class="faq-answer">We offer premium 5kg boxes of Sindhri, Chaunsa, Anwar Ratol, Langra, and Dussehri — all sourced from top orchards in Pakistan.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do you offer cash on delivery?</summary>
+          <p class="faq-answer">Yes! All orders are Cash on Delivery (COD). Pay when your mangoes arrive.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is the Sweetness Club?</summary>
+          <p class="faq-answer">Sweetness Club is our loyalty program. Earn points on orders, referrals, and reviews to unlock free delivery, early access to drops, and exclusive rewards.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How does Build Your Mango Squad work?</summary>
+          <p class="faq-answer">Share your referral link after checkout. When friends order, you level up and earn rewards — from bonus points to free delivery and mango boxes.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 Mangoeverse. Premium Pakistani mangoes, delivered with love.</p>
+  </footer>
+
+  <!-- Drop animation mango -->
+  <div class="drop-mango" id="drop-mango" aria-hidden="true">
+    <svg viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#F5A623"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <!-- Cart drawer -->
+  <aside class="drawer" id="cart-drawer" role="dialog" aria-labelledby="drawer-title" aria-modal="true">
+    <div class="drawer-handle" aria-hidden="true"></div>
+    <div class="drawer-header">
+      <h2 class="drawer-title" id="drawer-title">Your Basket</h2>
+      <button type="button" class="drawer-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div id="cart-view">
+        <div id="cart-items"></div>
+        <div id="cart-summary"></div>
+      </div>
+      <div id="checkout-view" class="hidden" style="display:none">
+        <form class="checkout-form" id="checkout-form">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="03XX XXXXXXX">
+          </div>
+          <div class="form-group">
+            <label for="address">Delivery Address</label>
+            <input type="text" id="address" name="address" required autocomplete="street-address" placeholder="House / Street">
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <select id="city" name="city" required>
+              <option value="">Select city</option>
+              <option value="Karachi">Karachi</option>
+              <option value="Lahore">Lahore</option>
+              <option value="Islamabad">Islamabad</option>
+              <option value="Rawalpindi">Rawalpindi</option>
+              <option value="Faisalabad">Faisalabad</option>
+              <option value="Multan">Multan</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <span class="form-group label" style="font-size:0.8125rem;font-weight:600">Payment</span>
+            <div class="payment-badge">💵 Cash on Delivery (COD)</div>
+          </div>
+          <button type="button" class="btn btn-secondary" id="checkout-back" style="width:100%">← Back to Basket</button>
+          <button type="submit" class="btn btn-primary" style="width:100%">Place Order</button>
+        </form>
+      </div>
+    </div>
+    <div class="drawer-footer" id="cart-footer">
+      <button type="button" class="btn btn-primary" id="cart-checkout-btn" style="width:100%" disabled>Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Product bottom sheet -->
+  <aside class="drawer" id="product-sheet" role="dialog" aria-labelledby="sheet-product-name" aria-modal="true">
+    <div class="drawer-handle" aria-hidden="true"></div>
+    <div class="drawer-header">
+      <h2 class="drawer-title" id="sheet-product-name">Product</h2>
+      <button type="button" class="drawer-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <div class="sheet-product-header">
+        <div class="sheet-product-image product-image" id="sheet-product-image"></div>
+        <div>
+          <data class="product-price" id="sheet-product-price" value="5200">Rs. 5,200</data>
+          <p style="font-size:0.8125rem;color:var(--color-muted);margin-top:0.25rem">5kg premium box</p>
+        </div>
+      </div>
+      <p id="sheet-product-desc" style="font-size:0.9375rem;color:var(--color-muted);line-height:1.6"></p>
+      <div class="sheet-qty">
+        <label for="sheet-qty-value">Quantity</label>
+        <button type="button" class="qty-btn" id="sheet-qty-minus" aria-label="Decrease">−</button>
+        <span id="sheet-qty-value">1</span>
+        <button type="button" class="qty-btn" id="sheet-qty-plus" aria-label="Increase">+</button>
+      </div>
+    </div>
+    <div class="drawer-footer">
+      <button type="button" class="btn btn-primary" id="sheet-add-btn" style="width:100%">Add To Basket</button>
+    </div>
+  </aside>
+
+  <!-- Profile sheet -->
+  <aside class="drawer" id="profile-sheet" role="dialog" aria-label="Profile" aria-modal="true">
+    <div class="drawer-handle" aria-hidden="true"></div>
+    <div class="drawer-header">
+      <h2 class="drawer-title">Your Profile</h2>
+      <button type="button" class="drawer-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="drawer-body">
+      <p class="profile-hint" id="profile-hint"></p>
+      <div class="profile-stats" id="profile-stats" style="display:none">
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profile-points">0</div>
+          <div class="profile-stat-label">Sweetness Points</div>
+        </div>
+        <div class="profile-stat">
+          <div class="profile-stat-value" id="profile-referrals">0</div>
+          <div class="profile-stat-label">Squad Members</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Success overlay -->
+  <div class="success-overlay" id="success-overlay" role="dialog" aria-labelledby="success-title" aria-modal="true">
+    <div class="success-mangoes" aria-hidden="true">
+      <svg class="success-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#F5A623"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+      <svg class="success-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#FFD93D"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#40916C"/></svg>
+      <svg class="success-mango" viewBox="0 0 64 64" fill="none"><ellipse cx="32" cy="36" rx="22" ry="24" fill="#FFB347"/><path d="M32 12 C34 8 38 6 42 8 C40 10 36 12 32 14 Z" fill="#2D6A4F"/></svg>
+    </div>
+    <h2 class="success-title" id="success-title">Order Placed!</h2>
+    <p class="success-message" id="success-message">Your mangoes are being handpicked for dispatch.</p>
+    <div class="success-points" id="success-points">+100 Sweetness Points</div>
+    <p style="font-size:0.8125rem;color:var(--color-muted);margin-bottom:0.5rem">Share your squad link</p>
+    <a href="#" class="referral-link" id="success-referral-link" style="font-size:0.75rem;word-break:break-all;color:var(--color-leaf)"></a>
+    <button type="button" class="btn btn-primary" id="success-close" style="margin-top:1.5rem;min-width:160px">Continue Shopping</button>
+  </div>
+
+  <script type="module" src="/js/app.js"></script>
+</body>
+</html>
