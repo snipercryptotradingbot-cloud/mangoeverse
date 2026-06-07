@@ -44,7 +44,11 @@ const cartItemsEl = $("#cart-items");
 const cartSummaryEl = $("#cart-summary");
 const checkoutForm = $("#checkout-form");
 const dropCountdownEl = $("#drop-countdown");
+let revealObserver = null;
 
+function cssClassFor(slug) {
+  return `product-${String(slug).toLowerCase().replace(/[^a-z0-9-]/g, "")}`;
+}
 function init() {
   captureReferralFromUrl();
   initPixel();
@@ -145,10 +149,23 @@ function renderShop() {
   const container = $("#shop-scroll");
   if (!container) return;
 
-  container.innerHTML = PRODUCTS.map(
-    (p) => `
+  if (PRODUCTS.length === 0) {
+    container.innerHTML = `
+      <div class="shop-empty">
+        <p>Sorry, products are temporarily unavailable. Please refresh to load the latest varieties from our store.</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = PRODUCTS.map((p) => {
+    const imageHtml = p.imageUrl
+      ? `<img src="${p.imageUrl}" alt="${p.name}" loading="lazy">`
+      : `<div class="product-emoji ${cssClassFor(p.slug)}" aria-hidden="true"><span class="stem"></span><span class="leaf"></span></div>`;
+
+    return `
     <article class="product-card reveal" data-id="${p.id}">
-      <div class="product-image" data-variety="${p.slug}">${MANGO_SVG}</div>
+      <div class="product-image" data-variety="${p.slug}">${imageHtml}</div>
       <div class="product-body">
         <h3 class="product-name">${p.name}</h3>
         <p class="product-weight">${p.weight}</p>
@@ -158,14 +175,20 @@ function renderShop() {
         </div>
       </div>
     </article>
-  `
-  ).join("");
+  `;
+  }).join("");
 
   container.querySelectorAll(".product-card").forEach((card) => {
     card.addEventListener("click", (e) => {
       if (e.target.closest("[data-quick-add]")) return;
       openProductSheet(card.dataset.id);
     });
+
+    if (revealObserver) {
+      revealObserver.observe(card);
+    } else {
+      card.classList.add("visible");
+    }
   });
 
   container.querySelectorAll("[data-quick-add]").forEach((btn) => {
@@ -182,10 +205,8 @@ function renderFeaturedDrop() {
   if (!drop) return;
   const nameEl = $("#drop-name");
   const priceEl = $("#drop-price");
-  const stockEl = $("#drop-stock");
   if (nameEl) nameEl.textContent = `${drop.name.toUpperCase()} DROP #${String(drop.dropNumber ?? 1).padStart(2, "0")}`;
   if (priceEl) priceEl.textContent = formatPrice(drop.price);
-  if (stockEl) stockEl.textContent = `${drop.stock} boxes left`;
 }
 
 function initDropCountdown() {
@@ -295,7 +316,7 @@ function getCartSubtotal() {
 function getCartTotal() {
   const customer = getCustomer();
   const discount = customer ? getDeliveryDiscount(customer.points) : 0;
-  return Math.max(0, getCartSubtotal() + 300 - discount);
+  return Math.max(0, getCartSubtotal() + 200 - discount);
 }
 
 function renderCart() {
@@ -343,7 +364,7 @@ function renderCart() {
   cartSummaryEl.innerHTML = `
     <div class="cart-summary">
       <div class="cart-row"><span>Subtotal</span><span>${formatPrice(getCartSubtotal())}</span></div>
-      <div class="cart-row"><span>Delivery</span><span>Rs. 300</span></div>
+      <div class="cart-row"><span>Delivery</span><span>Rs. 200</span></div>
       ${discount > 0 ? `<div class="cart-row cart-reward"><span>Sweetness reward</span><span>−${formatPrice(discount)}</span></div>` : ""}
       <div class="cart-row total"><span>Total</span><span>${formatPrice(getCartTotal())}</span></div>
     </div>
@@ -402,7 +423,11 @@ function openProductSheet(id) {
   const imgEl = $("#sheet-product-image");
   if (imgEl) {
     imgEl.dataset.variety = product.slug;
-    imgEl.innerHTML = MANGO_SVG;
+    if (product.imageUrl) {
+      imgEl.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}" loading="lazy">`;
+    } else {
+      imgEl.innerHTML = `<div class="sheet-product-emoji ${cssClassFor(product.slug)}" aria-hidden="true"><span class="stem"></span><span class="leaf"></span></div>`;
+    }
   }
 
   closeAllDrawers(false);
@@ -427,7 +452,10 @@ function showCartView() {
   const checkoutView = $("#checkout-view");
   const cartFooter = $("#cart-footer");
   if (cartView) cartView.style.display = "";
-  if (checkoutView) checkoutView.style.display = "none";
+  if (checkoutView) {
+    checkoutView.style.display = "none";
+    checkoutView.classList.add("hidden");
+  }
   if (cartFooter) cartFooter.style.display = "";
   $("#drawer-title").textContent = "Your Basket";
   renderCart();
@@ -439,9 +467,30 @@ function showCheckoutView() {
   const checkoutView = $("#checkout-view");
   const cartFooter = $("#cart-footer");
   if (cartView) cartView.style.display = "none";
-  if (checkoutView) checkoutView.style.display = "";
+  if (checkoutView) {
+    checkoutView.style.display = "";
+    checkoutView.classList.remove("hidden");
+  }
   if (cartFooter) cartFooter.style.display = "none";
   $("#drawer-title").textContent = "Checkout";
+}
+
+function clearCheckoutError() {
+  const errorEl = $("#checkout-error");
+  if (errorEl) {
+    errorEl.textContent = "";
+    errorEl.style.display = "none";
+  }
+}
+
+function showCheckoutError(message) {
+  const errorEl = $("#checkout-error");
+  if (errorEl) {
+    errorEl.textContent = message;
+    errorEl.style.display = "block";
+  } else {
+    alert(message);
+  }
 }
 
 async function handleCheckoutSubmit(e) {
@@ -452,6 +501,7 @@ async function handleCheckoutSubmit(e) {
   const address = form.address.value.trim();
   const city = form.city.value.trim();
 
+  clearCheckoutError();
   if (!name || !phone || !address || !city || state.cart.length === 0) return;
 
   const submitBtn = form.querySelector('[type="submit"]');
@@ -470,6 +520,8 @@ async function handleCheckoutSubmit(e) {
   let orderId = `MV-${Date.now()}`;
   let total = getCartTotal();
   let pointsEarned = 100;
+  let success = false;
+  let offlineFallback = false;
 
   try {
     const res = await fetch("/api/orders", {
@@ -478,23 +530,33 @@ async function handleCheckoutSubmit(e) {
       body: JSON.stringify(payload),
     });
     const data = await res.json();
-    if (data.ok) {
-      orderId = data.order.id;
-      total = data.order.total;
-      pointsEarned = data.pointsEarned ?? 100;
-      if (data.customer) syncCustomerFromApi(data.customer);
-      else {
-        saveCustomer(phone, name);
-        addPoints(pointsEarned);
-      }
-    } else {
-      throw new Error(data.message || "Order failed");
+    if (!res.ok || !data.ok) {
+      throw new Error(data?.message || `Order failed (${res.status})`);
     }
+
+    orderId = data.order.id;
+    total = data.order.total;
+    pointsEarned = data.pointsEarned ?? 100;
+    if (data.customer) {
+      syncCustomerFromApi(data.customer);
+    } else {
+      saveCustomer(phone, name);
+      addPoints(pointsEarned);
+    }
+    success = true;
   } catch (err) {
-    saveCustomer(phone, name);
-    addPoints(pointsEarned);
-    saveOrder({ id: orderId, name, phone, address, city, items: state.cart, total, createdAt: new Date().toISOString(), offline: true });
-    console.warn("Order saved locally:", err.message);
+    const message = err instanceof Error ? err.message : "Order failed";
+    if (!navigator.onLine || message.includes("Failed to fetch")) {
+      offlineFallback = true;
+      saveCustomer(phone, name);
+      addPoints(pointsEarned);
+      saveOrder({ id: orderId, name, phone, address, city, items: state.cart, total, createdAt: new Date().toISOString(), offline: true });
+      console.warn("Order saved locally for offline checkout:", message);
+    } else {
+      showCheckoutError(message);
+      if (submitBtn) submitBtn.disabled = false;
+      return;
+    }
   }
 
   trackPurchase(state.cart, total, orderId);
@@ -504,7 +566,13 @@ async function handleCheckoutSubmit(e) {
   updateCartBadge();
   closeAllDrawers();
 
-  showSuccessOverlay(name, pointsEarned);
+  if (offlineFallback) {
+    showSuccessOverlay(name, pointsEarned);
+    $("#success-message").textContent = `Thanks ${name.split(" ")[0]}! Your order is saved offline and will be processed once you reconnect.`;
+  } else {
+    showSuccessOverlay(name, pointsEarned);
+  }
+
   await fetchProducts();
   renderFeaturedDrop();
   updateClubUI();
@@ -640,19 +708,19 @@ function initScrollReveal() {
     return;
   }
 
-  const observer = new IntersectionObserver(
+  revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
+          revealObserver?.unobserve(entry.target);
         }
       });
     },
     { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
   );
 
-  $$(".reveal").forEach((el) => observer.observe(el));
+  $$(".reveal").forEach((el) => revealObserver.observe(el));
 }
 
 function initParallax() {

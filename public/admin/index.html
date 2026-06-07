@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mangoeverse Admin</title>
+  <link rel="manifest" href="/admin/manifest.json">
+  <meta name="theme-color" content="#2D6A4F">
+  <link rel="icon" href="/admin/icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/admin/admin.css">
 </head>
 <body>
@@ -55,9 +58,18 @@
       <section id="view-orders" class="view hidden">
         <div class="page-header">
           <h1 class="page-title">Orders</h1>
-          <button type="button" class="btn btn-ghost btn-sm" id="refresh-orders">Refresh</button>
+          <div>
+            <button type="button" class="btn btn-ghost btn-sm" id="refresh-orders">Refresh</button>
+            <button type="button" class="btn btn-primary btn-sm" id="notify-btn" style="margin-left:0.75rem">Enable notifications</button>
+          </div>
         </div>
-        <div class="kanban" id="kanban"></div>
+        <div class="panel">
+          <div class="panel-title">Order Queue</div>
+          <table class="data-table" id="orders-table">
+            <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
       </section>
 
       <section id="view-inventory" class="view hidden">

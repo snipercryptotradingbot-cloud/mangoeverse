@@ -121,10 +121,6 @@
             <span class="drop-meta-value drop-price" id="drop-price">Rs. 5,200</span>
           </div>
           <div class="drop-meta-item">
-            <span class="drop-meta-label">In Stock</span>
-            <span class="drop-meta-value" id="drop-stock">18 boxes left</span>
-          </div>
-          <div class="drop-meta-item">
             <span class="drop-meta-label">Delivery</span>
             <span class="drop-meta-value">2–4 days</span>
           </div>
@@ -134,10 +130,11 @@
       </article>
     </section>
 
-    <section class="section reveal" id="shop" aria-labelledby="shop-heading">
+    <section class="section" id="shop" aria-labelledby="shop-heading">
       <header class="section-header">
         <p class="section-label">Shop</p>
         <h2 class="section-title" id="shop-heading">Pick Your Variety</h2>
+        <p class="section-subtitle">Choose from Sindhri, Chaunsa, Anwar Ratol, Langra or Dussehri. 5kg box at PKR 2,250 — shipping PKR 200.</p>
       </header>
       <div class="shop-scroll" id="shop-scroll" role="list"></div>
     </section>
@@ -278,7 +275,7 @@
         <div id="cart-items"></div>
         <div id="cart-summary"></div>
       </div>
-      <div id="checkout-view" class="hidden" style="display:none">
+      <div id="checkout-view" style="display:none">
         <form class="checkout-form" id="checkout-form">
           <div class="form-group">
             <label for="name">Full Name</label>
@@ -309,6 +306,7 @@
             <span class="form-group label" style="font-size:0.8125rem;font-weight:600">Payment</span>
             <div class="payment-badge">💵 Cash on Delivery (COD)</div>
           </div>
+          <div class="form-error" id="checkout-error" aria-live="polite" style="display:none;margin-bottom:1rem;color:#b00020;font-weight:600"></div>
           <button type="button" class="btn btn-secondary" id="checkout-back" style="width:100%">← Back to Basket</button>
           <button type="submit" class="btn btn-primary" style="width:100%">Place Order</button>
         </form>

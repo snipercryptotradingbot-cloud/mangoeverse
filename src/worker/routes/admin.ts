@@ -80,9 +80,13 @@ export async function handleAdminApi(
     const formData = await request.formData();
     const file = formData.get("image");
     if (!(file instanceof File)) return error("image file required");
-    const key = await uploadProductImage(env, id, file);
-    if (!key) return error("Product not found", 404);
-    return json({ ok: true, imageKey: key, imageUrl: `/api/images/${key}` });
+    try {
+      const key = await uploadProductImage(env, id, file);
+      if (!key) return error("Product not found", 404);
+      return json({ ok: true, imageKey: key, imageUrl: `/api/images/${key}` });
+    } catch (e) {
+      return error(e instanceof Error ? e.message : "Image upload failed", 500);
+    }
   }
 
   if (url.pathname === "/api/admin/referrals" && request.method === "GET") {

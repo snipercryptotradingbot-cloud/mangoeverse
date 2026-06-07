@@ -17,9 +17,11 @@ Register a **workers.dev** subdomain (one-time):
 
 https://dash.cloudflare.com/94c9d2b075c868634f716993dbb0970f/workers/onboarding
 
-Then redeploy:
+Then redeploy using a valid Cloudflare API token with Worker, D1, KV, Queue, and account read permissions:
 
 ```bash
+cp .dev.vars.example .dev.vars
+# edit .dev.vars and add CLOUDFLARE_API_TOKEN
 npm run deploy
 ```
 
@@ -49,6 +51,8 @@ Also set `META_PIXEL_ID` in `public/js/tracking.js`.
 ## MCP vs Wrangler account
 
 The Cloudflare **plugin MCP** may use a different account than **Wrangler OAuth**. Resources for this project were created via Wrangler on `snipercryptotradingbot@gmail.com`. Use Wrangler commands for this repo’s deploy lifecycle.
+
+The project includes `.mcp.json` for Cloudflare MCP integration. It is configured to use `CLOUDFLARE_ACCOUNT_ID` from the repository and expects `CLOUDFLARE_API_TOKEN` to be supplied from the local environment or `.dev.vars`.
 
 ## Commands
 

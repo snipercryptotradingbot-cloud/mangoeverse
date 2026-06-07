@@ -25,23 +25,20 @@ export const MANGO_SVG = `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www
 </svg>`;
 
 export async function fetchProducts() {
-  const res = await fetch("/api/products");
-  const data = await res.json();
-  if (data.ok && data.products?.length) {
-    setProducts(data.products);
-    return data.products;
+  try {
+    const res = await fetch("/api/products");
+    const data = await res.json();
+    if (data.ok && data.products?.length) {
+      setProducts(data.products);
+      return data.products;
+    }
+  } catch (error) {
+    console.warn("Product fetch failed, loading fallback products.", error);
   }
   return loadFallbackProducts();
 }
 
 function loadFallbackProducts() {
-  const fallback = [
-    { id: "sindhri", name: "Sindhri", slug: "sindhri", weight: "5kg box", price: 4500, description: "Large, oval Sindhri mangoes with a honey-sweet flavor and minimal fiber.", stock: 42, featured: false },
-    { id: "chaunsa", name: "Chaunsa", slug: "chaunsa", weight: "5kg box", price: 5200, description: "The king of mangoes — intensely aromatic Chaunsa with rich, saffron-hued flesh.", stock: 18, featured: true, dropNumber: 7 },
-    { id: "anwar-ratol", name: "Anwar Ratol", slug: "anwar-ratol", weight: "5kg box", price: 5800, description: "Petite, ultra-sweet Anwar Ratol — a connoisseur favorite from Punjab.", stock: 24, featured: false },
-    { id: "langra", name: "Langra", slug: "langra", weight: "5kg box", price: 4800, description: "Green-skinned Langra with tangy-sweet balance and silky texture.", stock: 30, featured: false },
-    { id: "dussehri", name: "Dussehri", slug: "dussehri", weight: "5kg box", price: 4200, description: "Classic Dussehri — fragrant, fiber-free, and perfect for sharing.", stock: 36, featured: false },
-  ];
-  setProducts(fallback);
-  return fallback;
+  setProducts([]);
+  return [];
 }

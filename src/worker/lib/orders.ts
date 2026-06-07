@@ -4,7 +4,7 @@ import { addPoints, convertReferral, incrementLifetimeValue, upsertCustomer, fin
 import { invalidateProductCache } from "./products";
 import type { NotificationMessage } from "../types";
 
-const DELIVERY_FEE = 300;
+const DELIVERY_FEE = 200;
 const ORDER_POINTS = 100;
 
 export async function createOrder(env: Env, input: CreateOrderInput, ctx: ExecutionContext) {
@@ -121,7 +121,7 @@ export async function getOrderWithItems(env: Env, orderId: string) {
      JOIN products p ON p.id = oi.product_id
      WHERE oi.order_id = ?`
   ).bind(orderId).all();
-  return { ...order, items: results };
+  return { ...order, items };
 }
 
 export async function updateOrderStatus(env: Env, orderId: string, status: string) {

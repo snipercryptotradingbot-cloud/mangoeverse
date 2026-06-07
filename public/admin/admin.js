@@ -18,8 +18,14 @@ async function api(path, options = {}) {
     body = JSON.stringify(body);
   }
   const res = await fetch(`/api/admin${path}`, { ...options, headers, body });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Request failed");
+  let data;
+  try {
+    data = await res.json();
+  } catch (error) {
+    const text = await res.text().catch(() => "Unable to parse server response");
+    throw new Error(text || `Unexpected response from server (${res.status})`);
+  }
+  if (!res.ok) throw new Error(data?.message || `Request failed (${res.status})`);
   return data;
 }
 
@@ -52,63 +58,104 @@ async function loadDashboard() {
     .join("") || "<tr><td colspan='4'>No orders yet</td></tr>";
 }
 
+let lastOrderCount = null;
+let swRegistration = null;
+
 async function loadOrders() {
   const { orders } = await api("/orders");
-  const kanban = $("#kanban");
-  kanban.innerHTML = STATUSES.map((status) => {
-    const cols = orders.filter((o) => o.status === status);
-    return `
-      <div class="kanban-col" data-status="${status}">
-        <div class="kanban-col-header">${status}<span class="kanban-count">${cols.length}</span></div>
-        ${cols.map((o) => orderCard(o)).join("")}
-      </div>`;
-  }).join("");
+  const tbody = $("#orders-table tbody");
+  tbody.innerHTML = orders
+    .map(
+      (o) => `<tr data-id="${o.id}">
+        <td>${o.id}</td>
+        <td>${o.name || o.customer_phone || "—"}</td>
+        <td>${formatRs(o.total)}</td>
+        <td>
+          <select class="status-select" data-order-id="${o.id}">
+            ${STATUSES.map((status) => `<option value="${status}" ${status === o.status ? "selected" : ""}>${status}</option>`).join("")}
+          </select>
+        </td>
+        <td><button type="button" class="btn btn-sm btn-ghost update-order" data-order-id="${o.id}">Save</button></td>
+      </tr>`
+    )
+    .join("") || `<tr><td colspan='5'>No orders yet</td></tr>`;
 
-  setupKanbanDnD();
-}
-
-function orderCard(o) {
-  return `<div class="kanban-card" draggable="true" data-order-id="${o.id}">
-    <div class="kanban-card-id">${o.id}</div>
-    <div class="kanban-card-meta">${o.name} · ${o.city}</div>
-    <div class="kanban-card-total">${formatRs(o.total)}</div>
-  </div>`;
-}
-
-function setupKanbanDnD() {
-  let draggedId = null;
-
-  $$(".kanban-card").forEach((card) => {
-    card.addEventListener("dragstart", (e) => {
-      draggedId = card.dataset.orderId;
-      card.classList.add("dragging");
-      e.dataTransfer.effectAllowed = "move";
-    });
-    card.addEventListener("dragend", () => card.classList.remove("dragging"));
-  });
-
-  $$(".kanban-col").forEach((col) => {
-    col.addEventListener("dragover", (e) => {
-      e.preventDefault();
-      col.classList.add("drag-over");
-    });
-    col.addEventListener("dragleave", () => col.classList.remove("drag-over"));
-    col.addEventListener("drop", async (e) => {
-      e.preventDefault();
-      col.classList.remove("drag-over");
-      if (!draggedId) return;
-      const newStatus = col.dataset.status;
-      try {
-        await api(`/orders/${draggedId}`, {
-          method: "PATCH",
-          body: { status: newStatus },
-        });
-        await loadOrders();
-      } catch (err) {
-        alert(err.message);
-      }
+  tbody.querySelectorAll(".update-order").forEach((btn) => {
+    btn.addEventListener("click", async () => {
+      const orderId = btn.dataset.orderId;
+      const select = tbody.querySelector(`select[data-order-id="${orderId}"]`);
+      if (!select) return;
+      await updateOrderStatus(orderId, select.value);
     });
   });
+
+  maybeNotifyNewOrders(orders);
+}
+
+async function updateOrderStatus(orderId, status) {
+  try {
+    await api(`/orders/${orderId}`, {
+      method: "PATCH",
+      body: { status },
+    });
+    await loadOrders();
+  } catch (err) {
+    alert(err.message);
+  }
+}
+
+function maybeNotifyNewOrders(orders) {
+  if (Notification.permission === "granted" && lastOrderCount !== null && orders.length > lastOrderCount) {
+    const diff = orders.length - lastOrderCount;
+    showNotification("New Mangoeverse order", `${diff} new order${diff > 1 ? "s" : ""} received.`);
+  }
+  lastOrderCount = orders.length;
+}
+
+async function registerAdminPWA() {
+  if (!("serviceWorker" in navigator)) return;
+  try {
+    swRegistration = await navigator.serviceWorker.register("/admin/sw.js");
+    console.log("Admin service worker registered", swRegistration);
+  } catch (err) {
+    console.warn("Service worker registration failed", err);
+  }
+}
+
+function updateNotificationButton() {
+  const btn = $("#notify-btn");
+  if (!btn) return;
+  const granted = Notification.permission === "granted";
+  btn.textContent = granted ? "Notifications enabled" : "Enable notifications";
+  btn.disabled = granted;
+}
+
+async function requestNotificationPermission() {
+  if (!("Notification" in window)) {
+    return alert("Notifications are not supported by this browser.");
+  }
+
+  const permission = await Notification.requestPermission();
+  updateNotificationButton();
+  if (permission === "granted") {
+    showNotification("Mangoeverse admin", "Notifications are now enabled.");
+  }
+}
+
+function showNotification(title, body) {
+  const options = {
+    body,
+    icon: "/admin/icon.svg",
+    badge: "/admin/icon.svg",
+  };
+
+  if (swRegistration?.showNotification) {
+    swRegistration.showNotification(title, options).catch(() => {
+      if (Notification.permission === "granted") new Notification(title, options);
+    });
+  } else if (Notification.permission === "granted") {
+    new Notification(title, options);
+  }
 }
 
 async function loadInventory() {
@@ -237,6 +284,8 @@ async function verifyToken() {
 function enterApp() {
   $("#login-screen").classList.add("hidden");
   $("#admin-app").classList.remove("hidden");
+  registerAdminPWA();
+  updateNotificationButton();
   loadDashboard();
 }
 
@@ -265,6 +314,7 @@ $$(".nav-item[data-view]").forEach((btn) => {
   });
 });
 
+$("#notify-btn")?.addEventListener("click", requestNotificationPermission);
 $("#login-btn")?.addEventListener("click", () => tryLogin($("#token-input").value.trim()));
 $("#token-input")?.addEventListener("keydown", (e) => {
   if (e.key === "Enter") tryLogin($("#token-input").value.trim());

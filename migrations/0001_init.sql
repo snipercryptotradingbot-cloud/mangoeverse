@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS orders (
   customer_phone TEXT NOT NULL,
   status TEXT NOT NULL DEFAULT 'pending' CHECK (status IN ('pending', 'packed', 'shipped', 'delivered')),
   subtotal REAL NOT NULL,
-  delivery_fee REAL NOT NULL DEFAULT 300,
+  delivery_fee REAL NOT NULL DEFAULT 200,
   discount REAL NOT NULL DEFAULT 0,
   total REAL NOT NULL,
   name TEXT NOT NULL,
