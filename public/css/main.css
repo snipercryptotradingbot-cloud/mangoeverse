@@ -228,13 +228,28 @@
   padding: 0.5rem 0.875rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  background: var(--color-ink);
-  color: var(--color-white);
+  background: transparent;
+  color: var(--color-mango);
+  border: 2px solid var(--color-mango);
   border-radius: 8px;
   white-space: nowrap;
 }
 
-.btn-quick-add:hover { background: #333; }
+.btn-quick-add:hover { background: rgba(245,166,35,0.06); }
+
+/* Buy button (black) */
+.btn-buy-now {
+  padding: 0.5rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  background: #0b0b0b;
+  color: #fff;
+  border-radius: 8px;
+  border: none;
+  white-space: nowrap;
+}
+
+.btn-buy-now:hover { background: #1a1a1a; }
 
 /* Sweetness Club */
 .club-section { background: var(--color-white); }
@@ -713,19 +728,19 @@
 .sheet-product-image svg { width: 40px; height: 40px; }
 
 .product-emoji, .sheet-product-emoji {
-  width: 72px;
-  height: 92px;
-  border-radius: 45% 55% 62% 38% / 35% 60% 40% 55%;
+  width: 84px;
+  height: 112px;
+  border-radius: 35% 65% 70% 25% / 30% 50% 50% 60%;
   position: relative;
   overflow: visible;
-  transform: rotate(-15deg);
+  transform: rotate(-18deg);
   box-shadow:
-    inset -18px -18px 32px rgba(160, 40, 0, 0.35),
-    inset 16px 16px 34px rgba(255, 255, 210, 0.72),
-    14px 18px 26px rgba(0, 0, 0, 0.2);
+    inset -20px -20px 40px rgba(180, 40, 0, 0.4),
+    inset 20px 20px 40px rgba(255, 255, 200, 0.7),
+    15px 15px 30px rgba(0, 0, 0, 0.25);
 }
 
-.sheet-product-emoji { width: 90px; height: 108px; }
+.sheet-product-emoji { width: 102px; height: 130px; }
 
 .product-emoji::before,
 .sheet-product-emoji::before {
@@ -760,26 +775,26 @@
 .product-emoji .stem,
 .sheet-product-emoji .stem {
   position: absolute;
-  top: -18px;
-  left: 44%;
-  width: 12px;
-  height: 34px;
-  background: linear-gradient(145deg, #4e342e 0%, #795548 100%);
-  border-radius: 4px;
-  transform: rotate(12deg);
+  top: -6px;
+  left: 48%;
+  width: 8px;
+  height: 18px;
+  background: linear-gradient(to right, #4e342e, #795548);
+  border-radius: 2px;
+  transform: rotate(10deg);
   z-index: -1;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.18);
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .product-emoji .leaf,
 .sheet-product-emoji .leaf {
   position: absolute;
-  top: -30px;
-  left: 50%;
-  width: 80px;
-  height: 40px;
+  top: -22px;
+  left: 55%;
+  width: 50px;
+  height: 24px;
   background: linear-gradient(135deg, #76ff03 0%, #33691e 100%);
-  border-radius: 0 70% 0 70%;
+  border-radius: 0 60% 0 60%;
   transform: rotate(-30deg);
   box-shadow:
     inset -5px -5px 10px rgba(0, 0, 0, 0.2),

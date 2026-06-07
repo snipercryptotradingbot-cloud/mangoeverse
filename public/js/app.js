@@ -171,7 +171,10 @@ function renderShop() {
         <p class="product-weight">${p.weight}</p>
         <div class="product-footer">
           <data class="product-price" value="${p.price}">${formatPrice(p.price)}</data>
-          <button class="btn-quick-add" data-quick-add="${p.id}" type="button">Quick Add</button>
+          <div style="display:flex;gap:0.5rem">
+            <button class="btn-quick-add" data-quick-add="${p.id}" type="button">Add</button>
+            <button class="btn-buy-now" data-buy-now="${p.id}" type="button">Buy</button>
+          </div>
         </div>
       </div>
     </article>
@@ -196,6 +199,20 @@ function renderShop() {
       e.stopPropagation();
       const product = getProduct(btn.dataset.quickAdd);
       if (product) addToCart(product, 1, true, e.target);
+    });
+  });
+
+  container.querySelectorAll("[data-buy-now]").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const product = getProduct(btn.dataset.buyNow);
+      if (product) {
+        addToCart(product, 1, true, e.target);
+        const total = getCartTotal();
+        trackInitiateCheckout(state.cart, total);
+        openDrawer("cart");
+        showCheckoutView();
+      }
     });
   });
 }

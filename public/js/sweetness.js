@@ -37,7 +37,7 @@ const REFERRAL_LEVELS = [
   { level: 1, invites: 1, reward: "100 Sweetness Points", points: 100 },
   { level: 2, invites: 3, reward: "Free Delivery", points: 0 },
   { level: 3, invites: 5, reward: "500 Sweetness Points", points: 500 },
-  { level: 4, invites: 10, reward: "1kg Mango Box", points: 0 },
+  { level: 4, invites: 10, reward: "5 kg mango box", points: 0 },
 ];
 
 export function getCustomer() {
