@@ -1,4 +1,4 @@
-export const META_PIXEL_ID = "YOUR_PIXEL_ID";
+export const META_PIXEL_ID = "346144524184252";
 export const CAPI_ENDPOINT = "/api/meta/capi";
 export const CURRENCY = "PKR";
 
